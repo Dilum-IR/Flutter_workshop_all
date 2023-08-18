@@ -129,7 +129,7 @@ class _suggestionConstantBoxState extends State<suggestionConstantBox> {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: Color(0xff73A1F9),
-                                  strokeAlign: StrokeAlign.outside,
+                                  // strokeAlign: StrokeAlign.outside,
                                   width: 2),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50)),
@@ -141,7 +141,7 @@ class _suggestionConstantBoxState extends State<suggestionConstantBox> {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: Color(0xff73A1F9),
-                                  strokeAlign: StrokeAlign.outside,
+                                  // strokeAlign: StrokeAlign.outside,
                                   width: 2),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50)),
@@ -153,7 +153,7 @@ class _suggestionConstantBoxState extends State<suggestionConstantBox> {
                           decoration: BoxDecoration(
                               border: Border.all(
                                   color: Color(0xff73A1F9),
-                                  strokeAlign: StrokeAlign.outside,
+                                  // strokeAlign: StrokeAlign.outside,
                                   width: 2),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50)),
@@ -165,7 +165,7 @@ class _suggestionConstantBoxState extends State<suggestionConstantBox> {
                           decoration: BoxDecoration(
                             border: Border.all(
                                 color: Color(0xff73A1F9),
-                                strokeAlign: StrokeAlign.outside,
+                                // strokeAlign: StrokeAlign.outside,
                                 width: 2),
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(50),
