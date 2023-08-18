@@ -25,49 +25,50 @@ class _Signup_pageState extends State<Signup_page> {
   var isVisibility = true.obs;
 
   // email validation Process => is this email used or not
-  // validateEmail() async {
-  //   try {
-  //     var response = await http.post(Uri.parse(API.emailValidate), body: {
-  //       'user_email': emailController.text.trim().toString(),
-  //     });
-  //     // response is success code is 200
-  //     print(response.statusCode);
-  //
-  //     if (response.statusCode == 200) {
-  //       var resBody = jsonDecode(response.body);
-  //       print(resBody);
-  //
-  //       // get response is true it mean email is already use someone
-  //       if (resBody['emailFound'] == true) {
-  //         Fluttertoast.showToast(
-  //             msg: "Email is already in someone else use. Try another email");
-  //       } else {
-  //         // register the new users
-  //
-  //         if (passwordController.text.trim().toString() ==
-  //             rePasswordController.text.trim().toString()) {
-  //           registerUserRecord();
-  //         } else {
-  //           Fluttertoast.showToast(msg: "Your Passwords are not same");
-  //         }
-  //       }
-  //     } else {
-  //       print(response.statusCode);
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //     Fluttertoast.showToast(msg: e.toString());
-  //   }
-  // }
+  validateEmail() async {
+    try {
+      var response = await http.post(Uri.parse(API.emailValidate), body: {
+        'user_email': emailController.text.trim().toString(),
+        'submit': "true"
+      });
+      // response is success code is 200
+      print(response.statusCode);
 
-  void checkSamePwd() {
-    if (passwordController.text.trim().toString() ==
-        rePasswordController.text.trim().toString()) {
-      registerUserRecord();
-    } else {
-      Fluttertoast.showToast(msg: "Your Passwords are not same");
+      if (response.statusCode == 200) {
+        var resBody = jsonDecode(response.body);
+        print(resBody);
+
+        // get response is true it mean email is already use someone
+        if (resBody['emailFound'] == true) {
+          Fluttertoast.showToast(
+              msg: "Email is already in someone else use. Try another email");
+        } else {
+          // register the new users
+
+          if (passwordController.text.trim().toString() ==
+              rePasswordController.text.trim().toString()) {
+            registerUserRecord();
+          } else {
+            Fluttertoast.showToast(msg: "Your Passwords are not same");
+          }
+        }
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e.toString());
+      Fluttertoast.showToast(msg: e.toString());
     }
   }
+
+  // void checkSamePwd() {
+  //   if (passwordController.text.trim().toString() ==
+  //       rePasswordController.text.trim().toString()) {
+  //     registerUserRecord();
+  //   } else {
+  //     Fluttertoast.showToast(msg: "Your Passwords are not same");
+  //   }
+  // }
 
   // Registration process
   void registerUserRecord() async {
@@ -76,7 +77,8 @@ class _Signup_pageState extends State<Signup_page> {
         "user_firstname": fnameController.text.trim(),
         "user_email": emailController.text.trim(),
         "user_password": passwordController.text.trim(),
-        "user_phone": phoneController.text.trim()
+        "user_phone": phoneController.text.trim(),
+        "submit":"true"
       } //Convert to Json format
           );
 
@@ -334,8 +336,8 @@ class _Signup_pageState extends State<Signup_page> {
                                               if (formKey.currentState!
                                                   .validate()) {
                                                 // sign up process
-                                                // validateEmail();
-                                                checkSamePwd();
+                                                validateEmail();
+                                                // checkSamePwd();
                                               } else {
                                                 Fluttertoast.showToast(
                                                     msg: "Try Again");

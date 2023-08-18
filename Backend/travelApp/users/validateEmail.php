@@ -1,7 +1,7 @@
 <?php
     if (isset($_POST['submit']) == "true") {
-
-        $email = $_POST['email'];
+        
+        $email = $_POST['user_email'];
 
         require_once 'functions.php';
         require_once '../dbh.php';

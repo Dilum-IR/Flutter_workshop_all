@@ -1,28 +1,19 @@
 <?php
+    if (isset($_POST['submit']) == "true") {
 
-if(isset($_POST['submit']) == "true"){
+        $email = $_POST['user_email'];
+        $password = $_POST['user_password'];
 
-    include "../dbh.php";
+        require_once 'functions.php';
+        require_once '../dbh.php';
 
-    $email = $_POST['user_email'];
-    $password = $_POST['user_password'];
+        $result = login($conn, $email, $password);
 
-    $encryptPassword = md5($password);
-    $dbQuary = "SELECT * FROM user WHERE email = '$email' and password = '$encryptPassword'";
+        // if ($result != false) {
+        //     echo json_encode(array("login_success" => true, "user" => $result));
+        // } else {
+        //     echo json_encode(array("login_success" => false));
+        // }
 
-    $result = mysqli_query($conn,$dbQuary);
-
-    // get user's name
-    $userDatails = mysqli_fetch_assoc($result);
-    $name = $userDatails["first_name"];
-
-    //echo $name;
-
-    if ($result->num_rows ==1) {
-        echo json_encode(array("login_success"=>true,"user"=>$name));
+        echo json_encode(array("login_success" => true, "user" => $result));
     }
-    else{
-        echo json_encode(array("login_success"=>false));
-    }
-
-}

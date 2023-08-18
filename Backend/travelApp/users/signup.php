@@ -1,20 +1,20 @@
 <?php
+    if (isset($_POST['submit']) == "true") {
 
-    include "../dbh.php";
+        $firstName = $_POST['user_firstname'];
+        $email = $_POST['user_email'];
+        $phone = $_POST['user_phone'];
+        $password = $_POST['user_password'];
 
-    $firstName = $_POST['user_firstname'];
-    $email = $_POST['user_email'];
-    $phone = $_POST['user_phone'];
-    $password = $_POST['user_password'];
-    $encryptPassword = md5($password);
+        require_once 'functions.php';
+        require_once '../dbh.php';
 
-    $dbQuary = "INSERT INTO user (first_name,email,phone,password) VALUES ('$firstName','$email','$phone','$encryptPassword')";
-    
-    $result = mysqli_query($conn,$dbQuary);
-
-    if ($result)
-        echo json_encode(array("success"=>true));
-    else
-        echo json_encode(array("success"=>false));
-
-    ?>
+        $result = createUser($conn, $firstName, $email, $phone, $password);
+        
+        if ($result === true) {
+            echo json_encode(array("success" => true));
+        } else {
+            echo json_encode(array("success" => false));
+        }
+        exit();
+    }
