@@ -73,10 +73,10 @@ class _Signup_pageState extends State<Signup_page> {
   void registerUserRecord() async {
     try {
       var response = await http.post(Uri.parse(API.signup), body: {
-        "name": fnameController.text.trim(),
-        "email": emailController.text.trim(),
-        "pwd": passwordController.text.trim(),
-        "phone": phoneController.text.trim()
+        "user_firstname": fnameController.text.trim(),
+        "user_email": emailController.text.trim(),
+        "user_password": passwordController.text.trim(),
+        "user_phone": phoneController.text.trim()
       } //Convert to Json format
           );
 

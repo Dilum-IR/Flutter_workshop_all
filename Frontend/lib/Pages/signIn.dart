@@ -29,8 +29,9 @@ class _Signin_pageState extends State<Signin_page> {
     try {
       print(emailController.text.trim());
       var response = await http.post(Uri.parse(API.signin), body: {
-        "username": emailController.text.trim(),
-        "password": passwordController.text.trim(),
+        "user_email": emailController.text.trim(),
+        "user_password": passwordController.text.trim(),
+        "submit":"true",
       });
       print("Status code: ${response.statusCode}");
 
