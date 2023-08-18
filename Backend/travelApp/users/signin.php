@@ -9,11 +9,9 @@
 
         $result = login($conn, $email, $password);
 
-        // if ($result != false) {
-        //     echo json_encode(array("login_success" => true, "user" => $result));
-        // } else {
-        //     echo json_encode(array("login_success" => false));
-        // }
-
-        echo json_encode(array("login_success" => true, "user" => $result));
+        if ($result != false) {
+            echo json_encode(array("login_success" => true, "user" => $result));
+        } else {
+            echo json_encode(array("login_success" => false));
+        }
     }
