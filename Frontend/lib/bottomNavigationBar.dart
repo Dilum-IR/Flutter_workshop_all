@@ -9,6 +9,7 @@ class BotomNavigationBar extends StatefulWidget {
   const BotomNavigationBar({super.key});
 
   @override
+  // ignore: no_logic_in_create_state
   _BotomNavigationBar createState() => _BotomNavigationBar();
 }
 
@@ -17,11 +18,11 @@ class _BotomNavigationBar extends State<BotomNavigationBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
 
-  static const List<Widget> _mainPages = [
+  static final List<Widget> _mainPages = [
     HomePage(),
-    Favourite(),
-    Search(),
-    Profile()
+    const Favourite(),
+    const Search(),
+    const Profile(),
   ];
 
   @override

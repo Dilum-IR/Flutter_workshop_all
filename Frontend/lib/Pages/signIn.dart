@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:session2/Pages/signUp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../API_connection/API_connection.dart';
 import '../bottomNavigationBar.dart';
 import 'package:http/http.dart' as http;
+import 'homePage.dart';
 
 class Signin_page extends StatefulWidget {
   const Signin_page({Key? key}) : super(key: key);
@@ -22,34 +24,72 @@ class _Signin_pageState extends State<Signin_page> {
   var passwordController = TextEditingController();
   var isVisibility = true.obs;
 
-  late String userName;
   var getData = false;
+
+  late String firstName;
+  late String username;
+  late String password;
 
   void userSignIn() async {
     try {
-      print(emailController.text.trim());
+      // print(emailController.text);
       var response = await http.post(Uri.parse(API.signin), body: {
         "user_email": emailController.text.trim(),
         "user_password": passwordController.text.trim(),
-        "submit":"true",
+        "submit": "true",
       });
       print("Status code: ${response.statusCode}");
 
       if (response.statusCode == 200) {
         var resBodySignIn = jsonDecode(response.body);
+
         print(resBodySignIn);
+
         if (resBodySignIn['login_success'] == true) {
-          userName = resBodySignIn['user'];
-          print("$userName\n");
-          Fluttertoast.showToast(msg: "Sign In Successfully..");
-          Get.to(BotomNavigationBar());
+          // get the user name
+          firstName = resBodySignIn['user'];
+
+          // pass the username for home page
+          // print("firstName: $firstName\n");
+
+          // get preferences for username and password
+          username = emailController.text.trim();
+          password = passwordController.text.trim();
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setString('username', username); // Store the username
+          prefs.setString('password', password); // Store the password
+          prefs.setString('firstName', firstName); // Store the first name
+
+          // HomePage.name = userName;
+
+          print("Preferences");
+          print(username);
+          print(password);
+          print(firstName);
+
+          Fluttertoast.showToast(
+            msg: "Sign In Successfully..",
+            backgroundColor: Colors.blueAccent,
+            fontSize: 18,
+          );
+
           emailController.text = "";
           passwordController.text = "";
+
+          Get.to(const BotomNavigationBar());
+
+          // use for progress indicator
           setState(() {
             getData = false;
           });
         } else {
-          Fluttertoast.showToast(msg: "Sign In Unsuccessfully..");
+          Fluttertoast.showToast(
+            msg: "Sign In Unsuccessfully..",
+            backgroundColor: Colors.redAccent,
+            fontSize: 18,
+          );
+          // use for progress indicator
           setState(() {
             getData = false;
           });

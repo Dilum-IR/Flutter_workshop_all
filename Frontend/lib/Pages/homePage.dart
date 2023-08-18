@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'package:get/get.dart';
-
-import 'package:session2/Utils/suggestionConstantBox.dart';
-import 'package:session2/placeDetails.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../Utils/details.dart';
 import '../Utils/placeConstantBox.dart';
+import 'package:session2/Pages/signIn.dart';
+import 'package:session2/Utils/suggestionConstantBox.dart';
+import 'package:session2/placeDetails.dart';
+
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/ant_design.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,14 +20,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String name = "Dilum";
   var isTab = false;
   late Color changeColor = Colors.blue;
+  late String firstName = "";
 
   var searchController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    logUser();
+  }
+
+  void logUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      firstName = prefs.getString('firstName')!;
+    });
+  }
+
   void callPlace() {
-    // print("object");
     Get.to(
       // navigation page class name
       const PlaceDetails(),
@@ -32,8 +48,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void logout() {
+  void logout() async {
     print("Logout");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('username'); // Remove the stored username
+    await prefs.remove('password'); // Remove the stored password
+    await prefs.remove('firstName'); // Remove the stored first name
+
+    Fluttertoast.showToast(
+      msg: "User Logout",
+      backgroundColor: Colors.redAccent,
+      fontSize: 18,
+    );
+    Get.offAll(
+      const Signin_page(),
+      duration: const Duration(milliseconds: 1000),
+      transition: Transition.fadeIn,
+    );
   }
 
   @override
@@ -59,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    " $name",
+                    " $firstName",
                     style: const TextStyle(
                       fontSize: 25,
                       color: Colors.blue,
@@ -71,15 +102,29 @@ class _HomePageState extends State<HomePage> {
                     // flex: 1,
                     child: SizedBox(),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      logout();
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.location_fill,
-                      color: Color(0xff063970),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: GestureDetector(
+                      child: const Iconify(
+                        AntDesign.logout_outlined,
+                        color: Color(0xff063970),
+                        size: 30,
+                      ),
+                      onTap: () {
+                        logout();
+                      },
                     ),
                   )
+                  // IconButton(
+                  //     onPressed: () {
+                  //       logout();
+                  //     },
+                  //     child Iconify()
+                  //     // const Icon(
+                  //     //   CupertinoIcons.location_fill,
+                  //     //   color: Color(0xff063970),
+                  //     // ),
+                  //     )
                 ],
               ),
             ),
