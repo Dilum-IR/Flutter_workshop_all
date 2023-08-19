@@ -168,9 +168,18 @@ class _Signup_pageState extends State<Signup_page> {
                                         // first name
                                         TextFormField(
                                           controller: fnameController,
-                                          validator: (value) => value == ""
-                                              ? "Please Enter First name"
-                                              : null,
+                                          validator: (value){
+                                            if(value!.isEmpty){
+                                              // first name validation using regex
+                                              return "First Name is required";
+                                            }
+                                            else if(!RegExp(r'^[\s a-z A-Z]+$').hasMatch(value)){
+                                              return "Should contain only letters";
+                                            }else{
+                                              return null;
+                                            }
+
+                                          },
                                           decoration: InputDecoration(
                                             prefixIcon: const Icon(
                                               Icons.person,
@@ -197,9 +206,18 @@ class _Signup_pageState extends State<Signup_page> {
                                         // Email
                                         TextFormField(
                                           controller: emailController,
-                                          validator: (value) => value == ""
-                                              ? "Please Enter Email"
-                                              : null,
+                                          validator: (value){
+                                            if(value!.isEmpty){
+                                              // Email validation using regex
+                                              return "Email is required";
+                                            }
+                                            else if(!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
+                                              return "Please Enter Valid Email address";
+                                            }else{
+                                              return null;
+                                            }
+
+                                          },
                                           decoration: InputDecoration(
                                             prefixIcon: const Icon(
                                               Icons.email,
@@ -226,9 +244,18 @@ class _Signup_pageState extends State<Signup_page> {
                                         // Phone Number
                                         TextFormField(
                                           controller: phoneController,
-                                          validator: (value) => value == ""
-                                              ? "Please Enter Phone number"
-                                              : null,
+                                          validator: (value){
+                                            if(value!.isEmpty){
+                                              // Phone number validation using regex
+                                              return "Phone number is required";
+                                            }
+                                            else if(!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)){
+                                              return "Please Enter Valid Phone number";
+                                            }else{
+                                              return null;
+                                            }
+
+                                          },
                                           decoration: InputDecoration(
                                             prefixIcon: const Icon(
                                               Icons.phone,
@@ -256,9 +283,18 @@ class _Signup_pageState extends State<Signup_page> {
                                         Obx(
                                           () => TextFormField(
                                             controller: passwordController,
-                                            validator: (value) => value == ""
-                                                ? "Please Enter Password"
-                                                : null,
+                                            validator:  (value){
+                                              if(value!.isEmpty){
+                                                // Phone number validation using regex
+                                                return "password is required";
+                                              }
+                                              else if(!RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$').hasMatch(value)){
+                                                return "should contain upper,lower,digit and Special character/";
+                                              }else{
+                                                return null;
+                                              }
+
+                                            },
                                             obscureText: isVisibility.value,
                                             // using for password Secure
                                             decoration: InputDecoration(
