@@ -1,5 +1,5 @@
 <?php 
-    $server = 'localhost:3308';
+    $server = 'localhost';
     $dbUser = 'root';
     $dbPwd = '';
     $dbName = 'travel_app';
