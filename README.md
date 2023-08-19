@@ -133,6 +133,6 @@ flutter pub get
       <img alt="Issues" src="https://img.shields.io/github/issues/LearnCsWithDIR/Flutter_workshop_all?color=0088ff" />
     </a>
     <a href="https://github.com/LearnCsWithDIR/Flutter_workshop_all/pulls">
-      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-prLearnCsWithDIR/Flutter_workshop_all?color=0088ff" />
+      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/LearnCsWithDIR/Flutter_workshop_all?color=0088ff" />
     </a>
   </p>
