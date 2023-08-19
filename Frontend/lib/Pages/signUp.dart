@@ -41,7 +41,10 @@ class _Signup_pageState extends State<Signup_page> {
         // get response is true it mean email is already use someone
         if (resBody['emailFound'] == true) {
           Fluttertoast.showToast(
-              msg: "Email is already in someone else use. Try another email");
+            msg: "Email is already in someone else use. Try another email",
+            backgroundColor: Colors.orange,
+            fontSize: 18,
+          );
         } else {
           // register the new users
 
@@ -49,7 +52,11 @@ class _Signup_pageState extends State<Signup_page> {
               rePasswordController.text.trim().toString()) {
             registerUserRecord();
           } else {
-            Fluttertoast.showToast(msg: "Your Passwords are not same");
+            Fluttertoast.showToast(
+              msg: "Your Passwords are not same",
+              backgroundColor: Colors.red,
+              fontSize: 18,
+            );
           }
         }
       } else {
@@ -61,15 +68,6 @@ class _Signup_pageState extends State<Signup_page> {
     }
   }
 
-  // void checkSamePwd() {
-  //   if (passwordController.text.trim().toString() ==
-  //       rePasswordController.text.trim().toString()) {
-  //     registerUserRecord();
-  //   } else {
-  //     Fluttertoast.showToast(msg: "Your Passwords are not same");
-  //   }
-  // }
-
   // Registration process
   void registerUserRecord() async {
     try {
@@ -78,7 +76,7 @@ class _Signup_pageState extends State<Signup_page> {
         "user_email": emailController.text.trim(),
         "user_password": passwordController.text.trim(),
         "user_phone": phoneController.text.trim(),
-        "submit":"true"
+        "submit": "true"
       } //Convert to Json format
           );
 
@@ -89,11 +87,17 @@ class _Signup_pageState extends State<Signup_page> {
         // get response is true it mean email is already use someone
         if (resBodySignUp['success'] == true) {
           Fluttertoast.showToast(
-              msg: "Congratulations!.. Your sign Up Process is Successfully..");
+            msg: "Congratulations!.. Your sign Up Process is Successfully..",
+            backgroundColor: Colors.blueAccent,
+            fontSize: 18,
+          );
           Get.to(const Signin_page());
         } else {
           Fluttertoast.showToast(
-              msg: "Your sign Up is Unsuccessfully..Try Again ");
+            msg: "Your sign Up is Unsuccessfully..Try Again ",
+            backgroundColor: Colors.redAccent,
+            fontSize: 18,
+          );
         }
       }
     } catch (e) {
