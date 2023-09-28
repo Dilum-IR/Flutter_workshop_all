@@ -1,5 +1,5 @@
 class API {
-  // ipconfig
+  // Add your ip4 adddress here 
   static const host = "http://ADD IPV4 Address/Flutter_workshop_all/Backend";
 
   static const user = "$host/users";
